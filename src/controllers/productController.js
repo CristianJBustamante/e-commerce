@@ -67,12 +67,12 @@ const createProduct = (req, res) => {
   
       let products = JSON.parse(data);
       const newProduct = req.body;
-      newProduct.id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
+      newProduct.id = products.length > 0 ? parseInt(products[products.length - 1].id) + 1 : 1;
   
-      const validationError = validateProductData(newProduct);
-      if (validationError) {
-        return res.status(400).send(validationError);
-      }
+      // const validationError = validateProductData(newProduct);
+      // if (validationError) {
+      //   return res.status(400).send(validationError);
+      // }
   
       products.push(newProduct);
   
@@ -90,17 +90,64 @@ const createProduct = (req, res) => {
   }
 };
 
-const updateProduct = (req, res) => {
+// const updateProduct = (req, res) => {
 
+//   const productId = req.params.pid;
+
+//   try{
+//     fs.readFile(productsFilePath, 'utf-8', (err, data) => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(500).send('Error al leer el archivo de productos');
+//       }
+  
+//       let products;
+//       try {
+//         products = JSON.parse(data);
+//       } catch (parseError) {
+//         console.error(parseError);
+//         return res.status(500).send('Error al parsear el archivo de productos');
+//       }
+  
+//       const productIndex = products.findIndex(p => p.id == productId);
+//       if (productIndex === -1) {
+//         return res.status(404).send('Producto no encontrado');
+//       }
+  
+//       const updatedProduct = { ...products[productIndex], ...req.body };
+  
+//       // const validationError = validateProductData(updatedProduct, true);
+//       // if (validationError) {
+//       //   return res.status(400).send(validationError);
+//       // }
+  
+//       products[productIndex] = updatedProduct;
+  
+//       fs.writeFile(productsFilePath, JSON.stringify(products, null, 2), (err) => {
+//         if (err) {
+//           console.error(err);
+//           return res.status(500).send('Error al guardar el producto actualizado');
+//         }
+  
+//         res.json(updatedProduct);
+//       });
+//     });
+//   }catch(error){
+//     return res.status(500).send('Error con la lectura del archivo de Productos');
+//   }
+
+// };
+
+const updateProduct = (req, res) => {
   const productId = req.params.pid;
 
-  try{
+  try {
     fs.readFile(productsFilePath, 'utf-8', (err, data) => {
       if (err) {
         console.error(err);
         return res.status(500).send('Error al leer el archivo de productos');
       }
-  
+
       let products;
       try {
         products = JSON.parse(data);
@@ -108,35 +155,30 @@ const updateProduct = (req, res) => {
         console.error(parseError);
         return res.status(500).send('Error al parsear el archivo de productos');
       }
-  
+
       const productIndex = products.findIndex(p => p.id == productId);
       if (productIndex === -1) {
         return res.status(404).send('Producto no encontrado');
       }
-  
+
       const updatedProduct = { ...products[productIndex], ...req.body };
-  
-      const validationError = validateProductData(updatedProduct, true);
-      if (validationError) {
-        return res.status(400).send(validationError);
-      }
-  
-      products[productIndex] = updatedProduct;
-  
+
+      // Guardar el producto actualizado
       fs.writeFile(productsFilePath, JSON.stringify(products, null, 2), (err) => {
         if (err) {
           console.error(err);
           return res.status(500).send('Error al guardar el producto actualizado');
         }
-  
+
         res.json(updatedProduct);
       });
     });
-  }catch(error){
+  } catch (error) {
+    console.error(error);
     return res.status(500).send('Error con la lectura del archivo de Productos');
   }
-
 };
+
 
 const deleteProduct = (req, res) => {
   const productId = req.params.pid;
@@ -175,6 +217,14 @@ const deleteProduct = (req, res) => {
   }catch(error){
     return res.status(500).send('Error con la lectura del archivo de Productos');
   }
+};
+
+module.exports = {
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct
 };
 
 const validateProductData = (product, isUpdate = false) => {
@@ -220,12 +270,4 @@ const validateProductData = (product, isUpdate = false) => {
   }
 
   return null;
-};
-
-module.exports = {
-  getAllProducts,
-  getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct
 };
