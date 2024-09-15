@@ -64,16 +64,6 @@ io.on('connection', (socket) => {
         });
     });
 
-    // socket.on('updateProduct', (updatedProduct) => {
-    //     productController.updateProduct({ params: { pid: updatedProduct.id }, body: updatedProduct }, {
-    //         json: () => {
-    //             productController.getAllProducts({ query: {} }, {
-    //                 json: (products) => io.emit('productList', products)
-    //             });
-    //         }
-    //     });
-    // });
-
     socket.on('updateProduct', (updatedProduct, callback) => {
         productController.updateProduct(
             { params: { pid: updatedProduct.id }, body: updatedProduct },
