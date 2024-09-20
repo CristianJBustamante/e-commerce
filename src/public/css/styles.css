@@ -1,0 +1,8 @@
+.disabled {
+    pointer-events: none;
+    /* Evita los clics */
+    color: gray;
+    /* Cambia el color para parecer deshabilitado */
+    text-decoration: none;
+    /* Remueve el subrayado */
+  }
