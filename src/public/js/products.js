@@ -14,7 +14,7 @@ const getProducts=async()=>{
 
     data.products.forEach(p=>{
         let liProduct=document.createElement("li")
-        liProduct.textContent=`${p.title} - `
+        liProduct.textContent=`${p.title} - Stock: ${p.stock} - Price: $${p.price}` 
         ulProducts.append(liProduct)
     })
 

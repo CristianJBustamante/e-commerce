@@ -8,7 +8,7 @@ router.get('/',async(req,res)=>{
         page=1
     }
     if(!limit || isNaN(Number(limit))){
-        limit=5
+        limit=20
     }
 
     try {

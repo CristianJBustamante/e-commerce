@@ -2,7 +2,7 @@ import { cartsModel } from "./models/cartsModel.js";
 
 export class CartManager{
     static async getById(id){
-        return await cartsModel.findOne({_id:id})
+        return await cartsModel.findOne({id:id})
     }
 
     static async create(){
@@ -10,6 +10,6 @@ export class CartManager{
     }
 
     static async update(id, cart){
-        return await cartsModel.updateOne({_id:id}, cart)
+        return await cartsModel.updateOne({id:id}, cart)
     }
 }
