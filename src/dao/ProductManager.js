@@ -12,4 +12,12 @@ export class ProductManager{
     static async create(product){
         return await productsModel.create(product)
     }
+
+    static async updateById(id, updatedProduct) {
+        return await productsModel.findByIdAndUpdate(id, updatedProduct, { new: true });
+    }
+
+    static async deleteById(id) {
+        return await productsModel.findByIdAndDelete(id);
+    }
 }

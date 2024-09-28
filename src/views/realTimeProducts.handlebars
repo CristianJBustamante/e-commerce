@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Real-Time Products</title>
+</head>
+
+<body>
+    <h1>Product List (Real-Time)</h1>
+    <ul id="product-list"></ul>
+
+    <div id="pagination"></div>
+
+    <h2>Agregar Producto</h2>
+    <input type="text" id="title" placeholder="Título" required>
+    <input type="text" id="description" placeholder="Description" required>
+    <input type="text" id="code" placeholder="Code" required>
+    <input type="number" id="price" placeholder="Precio" required>
+    <input type="number" id="stock" placeholder="Stock" required>
+    <input type="text" id="category" placeholder="Category" required>
+    <button onclick="agregarProducto()">Agregar Producto</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/realtime.js"></script>
+
+</body>
+
+</html>
